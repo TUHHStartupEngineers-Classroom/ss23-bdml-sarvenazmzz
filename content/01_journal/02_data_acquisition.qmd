@@ -3,6 +3,206 @@ title: "Data Acquisition"
 author: "Joschka Schwarz"
 ---
 
-::: callout-note
-You can delete everything in here and start fresh.
-:::
+```{r}
+library(ggplot2)
+library(ggrepel)
+library(tidyverse)
+library(workflows)
+library(broom.mixed)
+library(parsnip)
+library(recipes)
+library(rsample)
+library(yardstick)
+library(rpart.plot)
+
+# Read the data
+bike_features_tbl <- readRDS("C:/Users/mosta/Desktop/Business Decisions with Machine Learning/2/bike_features_tbl.rds")
+
+# Remove missing values in the selected columns
+bike_features_tbl <- bike_features_tbl
+
+# Create a recipe
+bike_recipe <- recipe(price ~ category_2 + frame_material, data = bike_features_tbl) %>%
+  step_dummy(all_nominal(), -all_outcomes()) %>%
+  step_zv(all_predictors())
+
+# Prepare the recipe
+bike_recipe_prep <- prep(bike_recipe)
+
+# Split the data into training and test sets
+set.seed(1113)
+split_obj <- initial_split(bike_features_tbl, prop = 0.8, strata = "category_2")
+train_tbl <- training(split_obj)
+test_tbl <- testing(split_obj)
+
+# Create a workflow for Model 01
+wf_model_01 <- workflow() %>%
+  add_model(linear_reg(mode = "regression") %>% set_engine("lm")) %>%
+  add_recipe(bike_recipe_prep)
+
+# Fit Model 01 using the workflow
+model_01_linear_lm_simple <- fit(wf_model_01, data = train_tbl)
+
+# Make predictions on the test data for Model 01
+predictions_model_01 <- predict(model_01_linear_lm_simple, new_data = test_tbl) %>%
+  bind_cols(data.frame(price = test_tbl$price, category_2 = as.character(test_tbl$category_2)))
+
+# Calculate the RMSE manually for Model 01
+rmse_value_model_01 <- sqrt(mean((predictions_model_01$price - predictions_model_01$.pred)^2))
+
+# View the calculated RMSE for Model 01
+print(rmse_value_model_01)
+
+# Extract and tidy the coefficients for Model 01
+coefs_model_01 <- broom.mixed::tidy(model_01_linear_lm_simple$fit$fit) %>%
+  arrange(p.value) %>%
+  mutate(term = as_factor(term) %>% fct_rev())
+
+# Plot the feature importance for Model 01
+ggplot(coefs_model_01, aes(x = estimate, y = term)) +
+  geom_point(color = "#2dc6d6", size = 3) +
+  geom_label(aes(label = scales::dollar(coefs_model_01$estimate, accuracy = 1, suffix = " €", prefix = "")),
+             size = 3, fill = "#272A36", color = "white", hjust = 0) +
+  scale_x_continuous(labels = scales::dollar_format(suffix = " €", prefix = "")) +
+  labs(title = "Linear Regression: Feature Importance",
+       subtitle = "Model 01: Simple lm Model")
+
+
+
+# Define the helper function to calculate metrics
+calc_metrics <- function(model, new_data = test_tbl) {
+  model %>%
+    predict(new_data = new_data) %>%
+    bind_cols(new_data %>% select(price)) %>%
+    yardstick::metrics(truth = price, estimate = .pred)
+}
+
+# Calculate the metrics using the helper function for Model 01
+metrics_model_01 <- model_01_linear_lm_simple %>% calc_metrics(test_tbl)
+
+# Print the calculated metrics for Model 01
+print(metrics_model_01)
+
+# Create a workflow for Model 02
+wf_model_02 <- workflow() %>%
+  add_model(linear_reg(mode = "regression") %>% set_engine("lm")) %>%
+  add_recipe(bike_recipe_prep)
+
+# Fit Model 02 using the workflow
+model_02_linear_lm_complex <- fit(wf_model_02, data = train_tbl)
+
+# Make predictions on the test data for Model 02
+predictions_model_02 <- predict(model_02_linear_lm_complex, new_data = test_tbl) %>%
+  bind_cols(data.frame(price = test_tbl$price, category_2 = as.character(test_tbl$category_2)))
+
+# Calculate the RMSE manually for Model 02
+rmse_value_model_02 <- sqrt(mean((predictions_model_02$price - predictions_model_02$.pred)^2))
+
+# View the calculated RMSE for Model 02
+print(rmse_value_model_02)
+
+# Extract and tidy the coefficients for Model 02
+coefs_model_02 <- tidy(model_02_linear_lm_complex$fit$fit) %>%
+  arrange(p.value) %>%
+  mutate(term = as_factor(term) %>% fct_rev())
+
+# Plot the feature importance for Model 02
+ggplot(coefs_model_02, aes(x = estimate, y = term)) +
+  geom_point(color = "#2dc6d6", size = 3) +
+  ggrepel::geom_label_repel(aes(label = scales::dollar(estimate, accuracy = 1, suffix = " €", prefix = "")),
+                            size = 4, fill = "#272A36", color = "white") +
+  scale_x_continuous(labels = scales::dollar_format(suffix = " €", prefix = "")) +
+  labs(title = "Linear Regression: Feature Importance",
+       subtitle = "Model 02: Complex lm Model")
+
+# Calculate the metrics using the helper function for Model 02
+metrics_model_02 <- model_02_linear_lm_complex %>% calc_metrics(test_tbl)
+
+# Print the calculated metrics for Model 02
+print(metrics_model_02)
+
+# 5.0 TESTING THE ALGORITHMS OUT ----
+g1 <- bike_features_tbl %>% 
+  mutate(category_2 = as.factor(category_2) %>% 
+           fct_reorder(price)) %>% 
+  
+  ggplot(aes(category_2, price)) +
+  geom_violin() +
+  geom_jitter(width = 0.1, alpha = 0.5, color = "#2dc6d6") +
+  coord_flip() +
+  facet_wrap(~ frame_material) +
+  scale_y_continuous(labels = scales::dollar_format()) +
+  labs(
+    title = "Unit Price for Each Model",
+    y = "", x = "Category 2"
+  )
+
+# Print the plot
+print(g1)
+
+# 5.1 NEW MODEL ----
+
+new_cross_country <- tibble(
+  model = "Exceed AL SL new",
+  category_2 = "Cross-Country",
+  frame_material = "aluminium",
+  shimano_dura_ace = 0,
+  shimano_ultegra = 0,
+  shimano_105 = 0,
+  shimano_tiagra = 0,
+  Shimano_sora = 0,
+  shimano_deore = 0,
+  shimano_slx = 0,
+  shimano_grx = 0,
+  Shimano_xt = 1,
+  Shimano_xtr = 0,
+  Shimano_saint = 0,
+  SRAM_red = 0,
+  SRAM_force = 0,
+  SRAM_rival = 0,
+  SRAM_apex = 0,
+  SRAM_xx1 = 0,
+  SRAM_x01 = 0,
+  SRAM_gx = 0,
+  SRAM_nx = 0,
+  SRAM_sx = 0,
+  Campagnolo_potenza = 0,
+  Campagnolo_super_record = 0,
+  shimano_nexus = 0,
+  shimano_alfine = 0
+) 
+
+new_cross_country
+
+# Linear Methods ----
+
+# Iteration
+models_tbl <- tibble(
+  model_id = str_c("Model 0", 1:2),
+  model = list(
+    model_01_linear_lm_simple,
+    model_02_linear_lm_complex
+  )
+)
+
+models_tbl
+
+# Add Predictions
+predictions_new_cross_country_tbl <- models_tbl %>%
+  mutate(predictions = map(model, predict, new_data = new_cross_country)) %>%
+  unnest(predictions) %>%
+  mutate(category_2 = "Cross-Country") %>%
+  left_join(new_cross_country, by = "category_2")
+
+predictions_new_cross_country_tbl
+
+# Update plot
+g2 <- g1 +
+  geom_point(aes(y = .pred), color = "red", alpha = 0.5,
+             data = predictions_new_cross_country_tbl) +
+  ggrepel::geom_text_repel(aes(label = model_id, y = .pred),
+                           size = 3,
+                           data = predictions_new_cross_country_tbl)
+print(g2)
+
+```
