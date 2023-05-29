@@ -1,13 +1,10 @@
 <!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
-
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <meta charset="utf-8">
 <meta name="generator" content="quarto-1.2.335">
-
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
-
 <meta name="author" content="Joschka Schwarz">
-
 <title>MyLabJournal - Data Acquisition</title>
 <style>
 code{white-space: pre-wrap;}
@@ -21,8 +18,70 @@ ul.task-list li input[type="checkbox"] {
   margin: 0 0.8em 0.2em -1.6em;
   vertical-align: middle;
 }
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+    color: #aaaaaa;
+  }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code span.at { color: #7d9029; } /* Attribute */
+code span.bn { color: #40a070; } /* BaseN */
+code span.bu { color: #008000; } /* BuiltIn */
+code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code span.ch { color: #4070a0; } /* Char */
+code span.cn { color: #880000; } /* Constant */
+code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code span.dt { color: #902000; } /* DataType */
+code span.dv { color: #40a070; } /* DecVal */
+code span.er { color: #ff0000; font-weight: bold; } /* Error */
+code span.ex { } /* Extension */
+code span.fl { color: #40a070; } /* Float */
+code span.fu { color: #06287e; } /* Function */
+code span.im { color: #008000; font-weight: bold; } /* Import */
+code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code span.op { color: #666666; } /* Operator */
+code span.ot { color: #007020; } /* Other */
+code span.pp { color: #bc7a00; } /* Preprocessor */
+code span.sc { color: #4070a0; } /* SpecialChar */
+code span.ss { color: #bb6688; } /* SpecialString */
+code span.st { color: #4070a0; } /* String */
+code span.va { color: #19177c; } /* Variable */
+code span.vs { color: #4070a0; } /* VerbatimString */
+code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
 </style>
-
 
 <script src="../../site_libs/quarto-nav/quarto-nav.js"></script>
 <script src="../../site_libs/quarto-nav/headroom.min.js"></script>
@@ -43,7 +102,9 @@ ul.task-list li input[type="checkbox"] {
 <link href="../../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
 <link href="../../site_libs/bootstrap/bootstrap.min.css" rel="stylesheet" class="quarto-color-scheme" id="quarto-bootstrap" data-mode="light">
 <link href="../../site_libs/bootstrap/bootstrap-dark.min.css" rel="stylesheet" class="quarto-color-scheme quarto-color-alternate" id="quarto-bootstrap" data-mode="dark">
-<script id="quarto-search-options" type="application/json">{
+<script src="../../site_libs/quarto-contrib/glightbox/glightbox.min.js"></script>
+<link href="../../site_libs/quarto-contrib/glightbox/glightbox.min.css" rel="stylesheet">
+<link href="../../site_libs/quarto-contrib/glightbox/lightbox.css" rel="stylesheet"><script id="quarto-search-options" type="application/json">{
   "location": "navbar",
   "copy-button": false,
   "collapse-after": 3,
@@ -61,17 +122,13 @@ ul.task-list li input[type="checkbox"] {
     "search-detached-cancel-button-title": "Cancel",
     "search-submit-button-title": "Submit"
   }
-}</script>
-
-
+}</script><link href="../../site_libs/pagedtable-1.1/css/pagedtable.css" rel="stylesheet">
+<script src="../../site_libs/pagedtable-1.1/js/pagedtable.js"></script>
 </head>
-
 <body class="nav-fixed">
 
 <div id="quarto-search-results"></div>
-  <header id="quarto-header" class="headroom fixed-top">
-    <nav class="navbar navbar-expand-lg navbar-dark ">
-      <div class="navbar-container container-fluid">
+  <header id="quarto-header" class="headroom fixed-top"><nav class="navbar navbar-expand-lg navbar-dark "><div class="navbar-container container-fluid">
       <div class="navbar-brand-container">
     <a class="navbar-brand" href="../../index.html">
     <span class="navbar-title">MyLabJournal</span>
@@ -82,7 +139,7 @@ ul.task-list li input[type="checkbox"] {
 </button>
           <div class="collapse navbar-collapse" id="navbarCollapse">
             <ul class="navbar-nav navbar-nav-scroll me-auto">
-  <li class="nav-item">
+<li class="nav-item">
     <a class="nav-link" href="../../index.html">
  <span class="menu-text">Home</span></a>
   </li>  
@@ -90,8 +147,8 @@ ul.task-list li input[type="checkbox"] {
     <a class="nav-link dropdown-toggle" href="#" id="nav-menu-journal" role="button" data-bs-toggle="dropdown" aria-expanded="false">
  <span class="menu-text">Journal</span>
     </a>
-    <ul class="dropdown-menu" aria-labelledby="nav-menu-journal">    
-        <li>
+    <ul class="dropdown-menu" aria-labelledby="nav-menu-journal">
+<li>
     <a class="dropdown-item" href="../../content/01_journal/01_tidyverse.html">
  <span class="dropdown-text">01 Tidyverse</span></a>
   </li>  
@@ -108,7 +165,7 @@ ul.task-list li input[type="checkbox"] {
  <span class="dropdown-text">04 Data Visualization</span></a>
   </li>  
     </ul>
-  </li>
+</li>
   <li class="nav-item">
     <a class="nav-link" href="../../content/02_notes/05_class_notes.html">
  <span class="menu-text">Class notes</span></a>
@@ -118,26 +175,20 @@ ul.task-list li input[type="checkbox"] {
  <span class="menu-text">Links</span></a>
   </li>  
 </ul>
-              <div class="quarto-toggle-container">
+<div class="quarto-toggle-container">
                   <a href="" class="quarto-color-scheme-toggle nav-link" onclick="window.quartoToggleColorScheme(); return false;" title="Toggle dark mode"><i class="bi"></i></a>
               </div>
               <div id="quarto-search" class="" title="Search"></div>
           </div> <!-- /navcollapse -->
       </div> <!-- /container-fluid -->
-    </nav>
-</header>
-<!-- content -->
-<div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article page-navbar">
+    </nav></header><!-- content --><div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article page-navbar">
 <!-- sidebar -->
 <!-- margin-sidebar -->
     <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
         
     </div>
 <!-- main -->
-<main class="content" id="quarto-document-content">
-
-<header id="title-block-header" class="quarto-title-block default">
-<div class="quarto-title">
+<main class="content" id="quarto-document-content"><header id="title-block-header" class="quarto-title-block default"><div class="quarto-title">
 <h1 class="title">Data Acquisition</h1>
 </div>
 
@@ -157,26 +208,327 @@ ul.task-list li input[type="checkbox"] {
   </div>
   
 
-</header>
+</header><div class="cell" data-hash="02_data_acquisition_cache/html/unnamed-chunk-1_f9ff21bdc263b6d0562c5f2243994fbb">
+<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1"></a><span class="fu">library</span>(ggplot2)</span>
+<span id="cb1-2"><a href="#cb1-2"></a><span class="fu">library</span>(ggrepel)</span>
+<span id="cb1-3"><a href="#cb1-3"></a><span class="fu">library</span>(tidyverse)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stderr">
+<pre><code>#&gt; ── Attaching core tidyverse packages ──────────────────────── tidyverse 2.0.0 ──
+#&gt; ✔ dplyr     1.1.2     ✔ readr     2.1.4
+#&gt; ✔ forcats   1.0.0     ✔ stringr   1.5.0
+#&gt; ✔ lubridate 1.9.2     ✔ tibble    3.2.1
+#&gt; ✔ purrr     1.0.1     ✔ tidyr     1.3.0
+#&gt; ── Conflicts ────────────────────────────────────────── tidyverse_conflicts() ──
+#&gt; ✖ dplyr::filter() masks stats::filter()
+#&gt; ✖ dplyr::lag()    masks stats::lag()
+#&gt; ℹ Use the conflicted package (&lt;http://conflicted.r-lib.org/&gt;) to force all conflicts to become errors</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1"></a><span class="fu">library</span>(workflows)</span>
+<span id="cb3-2"><a href="#cb3-2"></a><span class="fu">library</span>(broom.mixed)</span>
+<span id="cb3-3"><a href="#cb3-3"></a><span class="fu">library</span>(parsnip)</span>
+<span id="cb3-4"><a href="#cb3-4"></a><span class="fu">library</span>(recipes)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stderr">
+<pre><code>#&gt; 
+#&gt; Attaching package: 'recipes'
+#&gt; 
+#&gt; The following object is masked from 'package:stringr':
+#&gt; 
+#&gt;     fixed
+#&gt; 
+#&gt; The following object is masked from 'package:stats':
+#&gt; 
+#&gt;     step</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1"></a><span class="fu">library</span>(rsample)</span>
+<span id="cb5-2"><a href="#cb5-2"></a><span class="fu">library</span>(yardstick)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stderr">
+<pre><code>#&gt; 
+#&gt; Attaching package: 'yardstick'
+#&gt; 
+#&gt; The following object is masked from 'package:readr':
+#&gt; 
+#&gt;     spec</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb7"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1"></a><span class="fu">library</span>(rpart.plot)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stderr">
+<pre><code>#&gt; Loading required package: rpart</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb9"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1"></a><span class="co"># Read the data</span></span>
+<span id="cb9-2"><a href="#cb9-2"></a>bike_features_tbl <span class="ot">&lt;-</span> <span class="fu">readRDS</span>(<span class="st">"C:/Users/mosta/Desktop/Business Decisions with Machine Learning/2/bike_features_tbl.rds"</span>)</span>
+<span id="cb9-3"><a href="#cb9-3"></a></span>
+<span id="cb9-4"><a href="#cb9-4"></a><span class="co"># Remove missing values in the selected columns</span></span>
+<span id="cb9-5"><a href="#cb9-5"></a>bike_features_tbl <span class="ot">&lt;-</span> bike_features_tbl</span>
+<span id="cb9-6"><a href="#cb9-6"></a></span>
+<span id="cb9-7"><a href="#cb9-7"></a><span class="co"># Create a recipe</span></span>
+<span id="cb9-8"><a href="#cb9-8"></a>bike_recipe <span class="ot">&lt;-</span> <span class="fu">recipe</span>(price <span class="sc">~</span> category_2 <span class="sc">+</span> frame_material, <span class="at">data =</span> bike_features_tbl) <span class="sc">%&gt;%</span></span>
+<span id="cb9-9"><a href="#cb9-9"></a>  <span class="fu">step_dummy</span>(<span class="fu">all_nominal</span>(), <span class="sc">-</span><span class="fu">all_outcomes</span>()) <span class="sc">%&gt;%</span></span>
+<span id="cb9-10"><a href="#cb9-10"></a>  <span class="fu">step_zv</span>(<span class="fu">all_predictors</span>())</span>
+<span id="cb9-11"><a href="#cb9-11"></a></span>
+<span id="cb9-12"><a href="#cb9-12"></a><span class="co"># Prepare the recipe</span></span>
+<span id="cb9-13"><a href="#cb9-13"></a>bike_recipe_prep <span class="ot">&lt;-</span> <span class="fu">prep</span>(bike_recipe)</span>
+<span id="cb9-14"><a href="#cb9-14"></a></span>
+<span id="cb9-15"><a href="#cb9-15"></a><span class="co"># Split the data into training and test sets</span></span>
+<span id="cb9-16"><a href="#cb9-16"></a><span class="fu">set.seed</span>(<span class="dv">1113</span>)</span>
+<span id="cb9-17"><a href="#cb9-17"></a>split_obj <span class="ot">&lt;-</span> <span class="fu">initial_split</span>(bike_features_tbl, <span class="at">prop =</span> <span class="fl">0.8</span>, <span class="at">strata =</span> <span class="st">"category_2"</span>)</span>
+<span id="cb9-18"><a href="#cb9-18"></a>train_tbl <span class="ot">&lt;-</span> <span class="fu">training</span>(split_obj)</span>
+<span id="cb9-19"><a href="#cb9-19"></a>test_tbl <span class="ot">&lt;-</span> <span class="fu">testing</span>(split_obj)</span>
+<span id="cb9-20"><a href="#cb9-20"></a></span>
+<span id="cb9-21"><a href="#cb9-21"></a><span class="co"># Create a workflow for Model 01</span></span>
+<span id="cb9-22"><a href="#cb9-22"></a>wf_model_01 <span class="ot">&lt;-</span> <span class="fu">workflow</span>() <span class="sc">%&gt;%</span></span>
+<span id="cb9-23"><a href="#cb9-23"></a>  <span class="fu">add_model</span>(<span class="fu">linear_reg</span>(<span class="at">mode =</span> <span class="st">"regression"</span>) <span class="sc">%&gt;%</span> <span class="fu">set_engine</span>(<span class="st">"lm"</span>)) <span class="sc">%&gt;%</span></span>
+<span id="cb9-24"><a href="#cb9-24"></a>  <span class="fu">add_recipe</span>(bike_recipe_prep)</span>
+<span id="cb9-25"><a href="#cb9-25"></a></span>
+<span id="cb9-26"><a href="#cb9-26"></a><span class="co"># Fit Model 01 using the workflow</span></span>
+<span id="cb9-27"><a href="#cb9-27"></a>model_01_linear_lm_simple <span class="ot">&lt;-</span> <span class="fu">fit</span>(wf_model_01, <span class="at">data =</span> train_tbl)</span>
+<span id="cb9-28"><a href="#cb9-28"></a></span>
+<span id="cb9-29"><a href="#cb9-29"></a><span class="co"># Make predictions on the test data for Model 01</span></span>
+<span id="cb9-30"><a href="#cb9-30"></a>predictions_model_01 <span class="ot">&lt;-</span> <span class="fu">predict</span>(model_01_linear_lm_simple, <span class="at">new_data =</span> test_tbl) <span class="sc">%&gt;%</span></span>
+<span id="cb9-31"><a href="#cb9-31"></a>  <span class="fu">bind_cols</span>(<span class="fu">data.frame</span>(<span class="at">price =</span> test_tbl<span class="sc">$</span>price, <span class="at">category_2 =</span> <span class="fu">as.character</span>(test_tbl<span class="sc">$</span>category_2)))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stderr">
+<pre><code>#&gt; Warning: There are new levels in a factor: E-Road</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb11"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1"></a><span class="co"># Calculate the RMSE manually for Model 01</span></span>
+<span id="cb11-2"><a href="#cb11-2"></a>rmse_value_model_01 <span class="ot">&lt;-</span> <span class="fu">sqrt</span>(<span class="fu">mean</span>((predictions_model_01<span class="sc">$</span>price <span class="sc">-</span> predictions_model_01<span class="sc">$</span>.pred)<span class="sc">^</span><span class="dv">2</span>))</span>
+<span id="cb11-3"><a href="#cb11-3"></a></span>
+<span id="cb11-4"><a href="#cb11-4"></a><span class="co"># View the calculated RMSE for Model 01</span></span>
+<span id="cb11-5"><a href="#cb11-5"></a><span class="fu">print</span>(rmse_value_model_01)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>#&gt; [1] NA</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb13"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1"></a><span class="co"># Extract and tidy the coefficients for Model 01</span></span>
+<span id="cb13-2"><a href="#cb13-2"></a>coefs_model_01 <span class="ot">&lt;-</span> broom.mixed<span class="sc">::</span><span class="fu">tidy</span>(model_01_linear_lm_simple<span class="sc">$</span>fit<span class="sc">$</span>fit) <span class="sc">%&gt;%</span></span>
+<span id="cb13-3"><a href="#cb13-3"></a>  <span class="fu">arrange</span>(p.value) <span class="sc">%&gt;%</span></span>
+<span id="cb13-4"><a href="#cb13-4"></a>  <span class="fu">mutate</span>(<span class="at">term =</span> <span class="fu">as_factor</span>(term) <span class="sc">%&gt;%</span> <span class="fu">fct_rev</span>())</span>
+<span id="cb13-5"><a href="#cb13-5"></a></span>
+<span id="cb13-6"><a href="#cb13-6"></a><span class="co"># Plot the feature importance for Model 01</span></span>
+<span id="cb13-7"><a href="#cb13-7"></a><span class="fu">ggplot</span>(coefs_model_01, <span class="fu">aes</span>(<span class="at">x =</span> estimate, <span class="at">y =</span> term)) <span class="sc">+</span></span>
+<span id="cb13-8"><a href="#cb13-8"></a>  <span class="fu">geom_point</span>(<span class="at">color =</span> <span class="st">"#2dc6d6"</span>, <span class="at">size =</span> <span class="dv">3</span>) <span class="sc">+</span></span>
+<span id="cb13-9"><a href="#cb13-9"></a>  <span class="fu">geom_label</span>(<span class="fu">aes</span>(<span class="at">label =</span> scales<span class="sc">::</span><span class="fu">dollar</span>(coefs_model_01<span class="sc">$</span>estimate, <span class="at">accuracy =</span> <span class="dv">1</span>, <span class="at">suffix =</span> <span class="st">" €"</span>, <span class="at">prefix =</span> <span class="st">""</span>)),</span>
+<span id="cb13-10"><a href="#cb13-10"></a>             <span class="at">size =</span> <span class="dv">3</span>, <span class="at">fill =</span> <span class="st">"#272A36"</span>, <span class="at">color =</span> <span class="st">"white"</span>, <span class="at">hjust =</span> <span class="dv">0</span>) <span class="sc">+</span></span>
+<span id="cb13-11"><a href="#cb13-11"></a>  <span class="fu">scale_x_continuous</span>(<span class="at">labels =</span> scales<span class="sc">::</span><span class="fu">dollar_format</span>(<span class="at">suffix =</span> <span class="st">" €"</span>, <span class="at">prefix =</span> <span class="st">""</span>)) <span class="sc">+</span></span>
+<span id="cb13-12"><a href="#cb13-12"></a>  <span class="fu">labs</span>(<span class="at">title =</span> <span class="st">"Linear Regression: Feature Importance"</span>,</span>
+<span id="cb13-13"><a href="#cb13-13"></a>       <span class="at">subtitle =</span> <span class="st">"Model 01: Simple lm Model"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stderr">
+<pre><code>#&gt; Warning: Use of `coefs_model_01$estimate` is discouraged.
+#&gt; ℹ Use `estimate` instead.</code></pre>
+</div>
+<div class="cell-output-display">
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure"><p><a href="02_data_acquisition_files/figure-html/unnamed-chunk-1-1.png" class="lightbox" data-gallery="quarto-lightbox-gallery-1"><img src="02_data_acquisition_files/figure-html/unnamed-chunk-1-1.png" class="img-fluid figure-img" width="672"></a></p>
+</figure>
+</div>
+</div>
+<div class="sourceCode cell-code" id="cb15"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb15-1"><a href="#cb15-1"></a><span class="co"># Define the helper function to calculate metrics</span></span>
+<span id="cb15-2"><a href="#cb15-2"></a>calc_metrics <span class="ot">&lt;-</span> <span class="cf">function</span>(model, <span class="at">new_data =</span> test_tbl) {</span>
+<span id="cb15-3"><a href="#cb15-3"></a>  model <span class="sc">%&gt;%</span></span>
+<span id="cb15-4"><a href="#cb15-4"></a>    <span class="fu">predict</span>(<span class="at">new_data =</span> new_data) <span class="sc">%&gt;%</span></span>
+<span id="cb15-5"><a href="#cb15-5"></a>    <span class="fu">bind_cols</span>(new_data <span class="sc">%&gt;%</span> <span class="fu">select</span>(price)) <span class="sc">%&gt;%</span></span>
+<span id="cb15-6"><a href="#cb15-6"></a>    yardstick<span class="sc">::</span><span class="fu">metrics</span>(<span class="at">truth =</span> price, <span class="at">estimate =</span> .pred)</span>
+<span id="cb15-7"><a href="#cb15-7"></a>}</span>
+<span id="cb15-8"><a href="#cb15-8"></a></span>
+<span id="cb15-9"><a href="#cb15-9"></a><span class="co"># Calculate the metrics using the helper function for Model 01</span></span>
+<span id="cb15-10"><a href="#cb15-10"></a>metrics_model_01 <span class="ot">&lt;-</span> model_01_linear_lm_simple <span class="sc">%&gt;%</span> <span class="fu">calc_metrics</span>(test_tbl)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stderr">
+<pre><code>#&gt; Warning: There are new levels in a factor: E-Road</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb17"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb17-1"><a href="#cb17-1"></a><span class="co"># Print the calculated metrics for Model 01</span></span>
+<span id="cb17-2"><a href="#cb17-2"></a><span class="fu">print</span>(metrics_model_01)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>#&gt; # A tibble: 3 × 3
+#&gt;   .metric .estimator .estimate
+#&gt;   &lt;chr&gt;   &lt;chr&gt;          &lt;dbl&gt;
+#&gt; 1 rmse    standard    1053.   
+#&gt; 2 rsq     standard       0.501
+#&gt; 3 mae     standard     768.</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb19"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb19-1"><a href="#cb19-1"></a><span class="co"># Create a workflow for Model 02</span></span>
+<span id="cb19-2"><a href="#cb19-2"></a>wf_model_02 <span class="ot">&lt;-</span> <span class="fu">workflow</span>() <span class="sc">%&gt;%</span></span>
+<span id="cb19-3"><a href="#cb19-3"></a>  <span class="fu">add_model</span>(<span class="fu">linear_reg</span>(<span class="at">mode =</span> <span class="st">"regression"</span>) <span class="sc">%&gt;%</span> <span class="fu">set_engine</span>(<span class="st">"lm"</span>)) <span class="sc">%&gt;%</span></span>
+<span id="cb19-4"><a href="#cb19-4"></a>  <span class="fu">add_recipe</span>(bike_recipe_prep)</span>
+<span id="cb19-5"><a href="#cb19-5"></a></span>
+<span id="cb19-6"><a href="#cb19-6"></a><span class="co"># Fit Model 02 using the workflow</span></span>
+<span id="cb19-7"><a href="#cb19-7"></a>model_02_linear_lm_complex <span class="ot">&lt;-</span> <span class="fu">fit</span>(wf_model_02, <span class="at">data =</span> train_tbl)</span>
+<span id="cb19-8"><a href="#cb19-8"></a></span>
+<span id="cb19-9"><a href="#cb19-9"></a><span class="co"># Make predictions on the test data for Model 02</span></span>
+<span id="cb19-10"><a href="#cb19-10"></a>predictions_model_02 <span class="ot">&lt;-</span> <span class="fu">predict</span>(model_02_linear_lm_complex, <span class="at">new_data =</span> test_tbl) <span class="sc">%&gt;%</span></span>
+<span id="cb19-11"><a href="#cb19-11"></a>  <span class="fu">bind_cols</span>(<span class="fu">data.frame</span>(<span class="at">price =</span> test_tbl<span class="sc">$</span>price, <span class="at">category_2 =</span> <span class="fu">as.character</span>(test_tbl<span class="sc">$</span>category_2)))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stderr">
+<pre><code>#&gt; Warning: There are new levels in a factor: E-Road</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb21"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb21-1"><a href="#cb21-1"></a><span class="co"># Calculate the RMSE manually for Model 02</span></span>
+<span id="cb21-2"><a href="#cb21-2"></a>rmse_value_model_02 <span class="ot">&lt;-</span> <span class="fu">sqrt</span>(<span class="fu">mean</span>((predictions_model_02<span class="sc">$</span>price <span class="sc">-</span> predictions_model_02<span class="sc">$</span>.pred)<span class="sc">^</span><span class="dv">2</span>))</span>
+<span id="cb21-3"><a href="#cb21-3"></a></span>
+<span id="cb21-4"><a href="#cb21-4"></a><span class="co"># View the calculated RMSE for Model 02</span></span>
+<span id="cb21-5"><a href="#cb21-5"></a><span class="fu">print</span>(rmse_value_model_02)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>#&gt; [1] NA</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb23"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb23-1"><a href="#cb23-1"></a><span class="co"># Extract and tidy the coefficients for Model 02</span></span>
+<span id="cb23-2"><a href="#cb23-2"></a>coefs_model_02 <span class="ot">&lt;-</span> <span class="fu">tidy</span>(model_02_linear_lm_complex<span class="sc">$</span>fit<span class="sc">$</span>fit) <span class="sc">%&gt;%</span></span>
+<span id="cb23-3"><a href="#cb23-3"></a>  <span class="fu">arrange</span>(p.value) <span class="sc">%&gt;%</span></span>
+<span id="cb23-4"><a href="#cb23-4"></a>  <span class="fu">mutate</span>(<span class="at">term =</span> <span class="fu">as_factor</span>(term) <span class="sc">%&gt;%</span> <span class="fu">fct_rev</span>())</span>
+<span id="cb23-5"><a href="#cb23-5"></a></span>
+<span id="cb23-6"><a href="#cb23-6"></a><span class="co"># Plot the feature importance for Model 02</span></span>
+<span id="cb23-7"><a href="#cb23-7"></a><span class="fu">ggplot</span>(coefs_model_02, <span class="fu">aes</span>(<span class="at">x =</span> estimate, <span class="at">y =</span> term)) <span class="sc">+</span></span>
+<span id="cb23-8"><a href="#cb23-8"></a>  <span class="fu">geom_point</span>(<span class="at">color =</span> <span class="st">"#2dc6d6"</span>, <span class="at">size =</span> <span class="dv">3</span>) <span class="sc">+</span></span>
+<span id="cb23-9"><a href="#cb23-9"></a>  ggrepel<span class="sc">::</span><span class="fu">geom_label_repel</span>(<span class="fu">aes</span>(<span class="at">label =</span> scales<span class="sc">::</span><span class="fu">dollar</span>(estimate, <span class="at">accuracy =</span> <span class="dv">1</span>, <span class="at">suffix =</span> <span class="st">" €"</span>, <span class="at">prefix =</span> <span class="st">""</span>)),</span>
+<span id="cb23-10"><a href="#cb23-10"></a>                            <span class="at">size =</span> <span class="dv">4</span>, <span class="at">fill =</span> <span class="st">"#272A36"</span>, <span class="at">color =</span> <span class="st">"white"</span>) <span class="sc">+</span></span>
+<span id="cb23-11"><a href="#cb23-11"></a>  <span class="fu">scale_x_continuous</span>(<span class="at">labels =</span> scales<span class="sc">::</span><span class="fu">dollar_format</span>(<span class="at">suffix =</span> <span class="st">" €"</span>, <span class="at">prefix =</span> <span class="st">""</span>)) <span class="sc">+</span></span>
+<span id="cb23-12"><a href="#cb23-12"></a>  <span class="fu">labs</span>(<span class="at">title =</span> <span class="st">"Linear Regression: Feature Importance"</span>,</span>
+<span id="cb23-13"><a href="#cb23-13"></a>       <span class="at">subtitle =</span> <span class="st">"Model 02: Complex lm Model"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure"><p><a href="02_data_acquisition_files/figure-html/unnamed-chunk-1-2.png" class="lightbox" data-gallery="quarto-lightbox-gallery-2"><img src="02_data_acquisition_files/figure-html/unnamed-chunk-1-2.png" class="img-fluid figure-img" width="672"></a></p>
+</figure>
+</div>
+</div>
+<div class="sourceCode cell-code" id="cb24"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb24-1"><a href="#cb24-1"></a><span class="co"># Calculate the metrics using the helper function for Model 02</span></span>
+<span id="cb24-2"><a href="#cb24-2"></a>metrics_model_02 <span class="ot">&lt;-</span> model_02_linear_lm_complex <span class="sc">%&gt;%</span> <span class="fu">calc_metrics</span>(test_tbl)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stderr">
+<pre><code>#&gt; Warning: There are new levels in a factor: E-Road</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb26"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb26-1"><a href="#cb26-1"></a><span class="co"># Print the calculated metrics for Model 02</span></span>
+<span id="cb26-2"><a href="#cb26-2"></a><span class="fu">print</span>(metrics_model_02)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>#&gt; # A tibble: 3 × 3
+#&gt;   .metric .estimator .estimate
+#&gt;   &lt;chr&gt;   &lt;chr&gt;          &lt;dbl&gt;
+#&gt; 1 rmse    standard    1053.   
+#&gt; 2 rsq     standard       0.501
+#&gt; 3 mae     standard     768.</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb28"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb28-1"><a href="#cb28-1"></a><span class="co"># 5.0 </span><span class="al">TESTING</span><span class="co"> THE ALGORITHMS OUT ----</span></span>
+<span id="cb28-2"><a href="#cb28-2"></a>g1 <span class="ot">&lt;-</span> bike_features_tbl <span class="sc">%&gt;%</span> </span>
+<span id="cb28-3"><a href="#cb28-3"></a>  <span class="fu">mutate</span>(<span class="at">category_2 =</span> <span class="fu">as.factor</span>(category_2) <span class="sc">%&gt;%</span> </span>
+<span id="cb28-4"><a href="#cb28-4"></a>           <span class="fu">fct_reorder</span>(price)) <span class="sc">%&gt;%</span> </span>
+<span id="cb28-5"><a href="#cb28-5"></a>  </span>
+<span id="cb28-6"><a href="#cb28-6"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(category_2, price)) <span class="sc">+</span></span>
+<span id="cb28-7"><a href="#cb28-7"></a>  <span class="fu">geom_violin</span>() <span class="sc">+</span></span>
+<span id="cb28-8"><a href="#cb28-8"></a>  <span class="fu">geom_jitter</span>(<span class="at">width =</span> <span class="fl">0.1</span>, <span class="at">alpha =</span> <span class="fl">0.5</span>, <span class="at">color =</span> <span class="st">"#2dc6d6"</span>) <span class="sc">+</span></span>
+<span id="cb28-9"><a href="#cb28-9"></a>  <span class="fu">coord_flip</span>() <span class="sc">+</span></span>
+<span id="cb28-10"><a href="#cb28-10"></a>  <span class="fu">facet_wrap</span>(<span class="sc">~</span> frame_material) <span class="sc">+</span></span>
+<span id="cb28-11"><a href="#cb28-11"></a>  <span class="fu">scale_y_continuous</span>(<span class="at">labels =</span> scales<span class="sc">::</span><span class="fu">dollar_format</span>()) <span class="sc">+</span></span>
+<span id="cb28-12"><a href="#cb28-12"></a>  <span class="fu">labs</span>(</span>
+<span id="cb28-13"><a href="#cb28-13"></a>    <span class="at">title =</span> <span class="st">"Unit Price for Each Model"</span>,</span>
+<span id="cb28-14"><a href="#cb28-14"></a>    <span class="at">y =</span> <span class="st">""</span>, <span class="at">x =</span> <span class="st">"Category 2"</span></span>
+<span id="cb28-15"><a href="#cb28-15"></a>  )</span>
+<span id="cb28-16"><a href="#cb28-16"></a></span>
+<span id="cb28-17"><a href="#cb28-17"></a><span class="co"># Print the plot</span></span>
+<span id="cb28-18"><a href="#cb28-18"></a><span class="fu">print</span>(g1)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stderr">
+<pre><code>#&gt; Warning: Groups with fewer than two data points have been dropped.</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>#&gt; Warning: Groups with fewer than two data points have been dropped.
+#&gt; Groups with fewer than two data points have been dropped.</code></pre>
+</div>
+<div class="cell-output-display">
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure"><p><a href="02_data_acquisition_files/figure-html/unnamed-chunk-1-3.png" class="lightbox" data-gallery="quarto-lightbox-gallery-3"><img src="02_data_acquisition_files/figure-html/unnamed-chunk-1-3.png" class="img-fluid figure-img" width="672"></a></p>
+</figure>
+</div>
+</div>
+<div class="sourceCode cell-code" id="cb31"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb31-1"><a href="#cb31-1"></a><span class="co"># 5.1 NEW MODEL ----</span></span>
+<span id="cb31-2"><a href="#cb31-2"></a></span>
+<span id="cb31-3"><a href="#cb31-3"></a>new_cross_country <span class="ot">&lt;-</span> <span class="fu">tibble</span>(</span>
+<span id="cb31-4"><a href="#cb31-4"></a>  <span class="at">model =</span> <span class="st">"Exceed AL SL new"</span>,</span>
+<span id="cb31-5"><a href="#cb31-5"></a>  <span class="at">category_2 =</span> <span class="st">"Cross-Country"</span>,</span>
+<span id="cb31-6"><a href="#cb31-6"></a>  <span class="at">frame_material =</span> <span class="st">"aluminium"</span>,</span>
+<span id="cb31-7"><a href="#cb31-7"></a>  <span class="at">shimano_dura_ace =</span> <span class="dv">0</span>,</span>
+<span id="cb31-8"><a href="#cb31-8"></a>  <span class="at">shimano_ultegra =</span> <span class="dv">0</span>,</span>
+<span id="cb31-9"><a href="#cb31-9"></a>  <span class="at">shimano_105 =</span> <span class="dv">0</span>,</span>
+<span id="cb31-10"><a href="#cb31-10"></a>  <span class="at">shimano_tiagra =</span> <span class="dv">0</span>,</span>
+<span id="cb31-11"><a href="#cb31-11"></a>  <span class="at">Shimano_sora =</span> <span class="dv">0</span>,</span>
+<span id="cb31-12"><a href="#cb31-12"></a>  <span class="at">shimano_deore =</span> <span class="dv">0</span>,</span>
+<span id="cb31-13"><a href="#cb31-13"></a>  <span class="at">shimano_slx =</span> <span class="dv">0</span>,</span>
+<span id="cb31-14"><a href="#cb31-14"></a>  <span class="at">shimano_grx =</span> <span class="dv">0</span>,</span>
+<span id="cb31-15"><a href="#cb31-15"></a>  <span class="at">Shimano_xt =</span> <span class="dv">1</span>,</span>
+<span id="cb31-16"><a href="#cb31-16"></a>  <span class="at">Shimano_xtr =</span> <span class="dv">0</span>,</span>
+<span id="cb31-17"><a href="#cb31-17"></a>  <span class="at">Shimano_saint =</span> <span class="dv">0</span>,</span>
+<span id="cb31-18"><a href="#cb31-18"></a>  <span class="at">SRAM_red =</span> <span class="dv">0</span>,</span>
+<span id="cb31-19"><a href="#cb31-19"></a>  <span class="at">SRAM_force =</span> <span class="dv">0</span>,</span>
+<span id="cb31-20"><a href="#cb31-20"></a>  <span class="at">SRAM_rival =</span> <span class="dv">0</span>,</span>
+<span id="cb31-21"><a href="#cb31-21"></a>  <span class="at">SRAM_apex =</span> <span class="dv">0</span>,</span>
+<span id="cb31-22"><a href="#cb31-22"></a>  <span class="at">SRAM_xx1 =</span> <span class="dv">0</span>,</span>
+<span id="cb31-23"><a href="#cb31-23"></a>  <span class="at">SRAM_x01 =</span> <span class="dv">0</span>,</span>
+<span id="cb31-24"><a href="#cb31-24"></a>  <span class="at">SRAM_gx =</span> <span class="dv">0</span>,</span>
+<span id="cb31-25"><a href="#cb31-25"></a>  <span class="at">SRAM_nx =</span> <span class="dv">0</span>,</span>
+<span id="cb31-26"><a href="#cb31-26"></a>  <span class="at">SRAM_sx =</span> <span class="dv">0</span>,</span>
+<span id="cb31-27"><a href="#cb31-27"></a>  <span class="at">Campagnolo_potenza =</span> <span class="dv">0</span>,</span>
+<span id="cb31-28"><a href="#cb31-28"></a>  <span class="at">Campagnolo_super_record =</span> <span class="dv">0</span>,</span>
+<span id="cb31-29"><a href="#cb31-29"></a>  <span class="at">shimano_nexus =</span> <span class="dv">0</span>,</span>
+<span id="cb31-30"><a href="#cb31-30"></a>  <span class="at">shimano_alfine =</span> <span class="dv">0</span></span>
+<span id="cb31-31"><a href="#cb31-31"></a>) </span>
+<span id="cb31-32"><a href="#cb31-32"></a></span>
+<span id="cb31-33"><a href="#cb31-33"></a>new_cross_country</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
 
-<div class="callout-note callout callout-style-default callout-captioned">
-<div class="callout-header d-flex align-content-center">
-<div class="callout-icon-container">
-<i class="callout-icon"></i>
-</div>
-<div class="callout-caption-container flex-fill">
-Note
+<div data-pagedtable="false">
+  <script data-pagedtable-source="" type="application/json">
+{"columns":[{"label":["model"],"name":[1],"type":["chr"],"align":["left"]},{"label":["category_2"],"name":[2],"type":["chr"],"align":["left"]},{"label":["frame_material"],"name":[3],"type":["chr"],"align":["left"]},{"label":["shimano_dura_ace"],"name":[4],"type":["dbl"],"align":["right"]},{"label":["shimano_ultegra"],"name":[5],"type":["dbl"],"align":["right"]},{"label":["shimano_105"],"name":[6],"type":["dbl"],"align":["right"]},{"label":["shimano_tiagra"],"name":[7],"type":["dbl"],"align":["right"]},{"label":["Shimano_sora"],"name":[8],"type":["dbl"],"align":["right"]},{"label":["shimano_deore"],"name":[9],"type":["dbl"],"align":["right"]},{"label":["shimano_slx"],"name":[10],"type":["dbl"],"align":["right"]},{"label":["shimano_grx"],"name":[11],"type":["dbl"],"align":["right"]},{"label":["Shimano_xt"],"name":[12],"type":["dbl"],"align":["right"]},{"label":["Shimano_xtr"],"name":[13],"type":["dbl"],"align":["right"]},{"label":["Shimano_saint"],"name":[14],"type":["dbl"],"align":["right"]},{"label":["SRAM_red"],"name":[15],"type":["dbl"],"align":["right"]},{"label":["SRAM_force"],"name":[16],"type":["dbl"],"align":["right"]},{"label":["SRAM_rival"],"name":[17],"type":["dbl"],"align":["right"]},{"label":["SRAM_apex"],"name":[18],"type":["dbl"],"align":["right"]},{"label":["SRAM_xx1"],"name":[19],"type":["dbl"],"align":["right"]},{"label":["SRAM_x01"],"name":[20],"type":["dbl"],"align":["right"]},{"label":["SRAM_gx"],"name":[21],"type":["dbl"],"align":["right"]},{"label":["SRAM_nx"],"name":[22],"type":["dbl"],"align":["right"]},{"label":["SRAM_sx"],"name":[23],"type":["dbl"],"align":["right"]},{"label":["Campagnolo_potenza"],"name":[24],"type":["dbl"],"align":["right"]},{"label":["Campagnolo_super_record"],"name":[25],"type":["dbl"],"align":["right"]},{"label":["shimano_nexus"],"name":[26],"type":["dbl"],"align":["right"]},{"label":["shimano_alfine"],"name":[27],"type":["dbl"],"align":["right"]}],"data":[{"1":"Exceed AL SL new","2":"Cross-Country","3":"aluminium","4":"0","5":"0","6":"0","7":"0","8":"0","9":"0","10":"0","11":"0","12":"1","13":"0","14":"0","15":"0","16":"0","17":"0","18":"0","19":"0","20":"0","21":"0","22":"0","23":"0","24":"0","25":"0","26":"0","27":"0"}],"options":{"columns":{"min":{},"max":[10]},"rows":{"min":[10],"max":[10]},"pages":{}}}
+  </script>
 </div>
 </div>
-<div class="callout-body-container callout-body">
-<p>You can delete everything in here and start fresh.</p>
+<div class="sourceCode cell-code" id="cb32"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb32-1"><a href="#cb32-1"></a><span class="co"># Linear Methods ----</span></span>
+<span id="cb32-2"><a href="#cb32-2"></a></span>
+<span id="cb32-3"><a href="#cb32-3"></a><span class="co"># Iteration</span></span>
+<span id="cb32-4"><a href="#cb32-4"></a>models_tbl <span class="ot">&lt;-</span> <span class="fu">tibble</span>(</span>
+<span id="cb32-5"><a href="#cb32-5"></a>  <span class="at">model_id =</span> <span class="fu">str_c</span>(<span class="st">"Model 0"</span>, <span class="dv">1</span><span class="sc">:</span><span class="dv">2</span>),</span>
+<span id="cb32-6"><a href="#cb32-6"></a>  <span class="at">model =</span> <span class="fu">list</span>(</span>
+<span id="cb32-7"><a href="#cb32-7"></a>    model_01_linear_lm_simple,</span>
+<span id="cb32-8"><a href="#cb32-8"></a>    model_02_linear_lm_complex</span>
+<span id="cb32-9"><a href="#cb32-9"></a>  )</span>
+<span id="cb32-10"><a href="#cb32-10"></a>)</span>
+<span id="cb32-11"><a href="#cb32-11"></a></span>
+<span id="cb32-12"><a href="#cb32-12"></a>models_tbl</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+
+<div data-pagedtable="false">
+  <script data-pagedtable-source="" type="application/json">
+{"columns":[{"label":["model_id"],"name":[1],"type":["chr"],"align":["left"]},{"label":["model"],"name":[2],"type":["list"],"align":["right"]}],"data":[{"1":"Model 01","2":"<S3: workflow>"},{"1":"Model 02","2":"<S3: workflow>"}],"options":{"columns":{"min":{},"max":[10]},"rows":{"min":[10],"max":[10]},"pages":{}}}
+  </script>
+</div>
+</div>
+<div class="sourceCode cell-code" id="cb33"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb33-1"><a href="#cb33-1"></a><span class="co"># Add Predictions</span></span>
+<span id="cb33-2"><a href="#cb33-2"></a>predictions_new_cross_country_tbl <span class="ot">&lt;-</span> models_tbl <span class="sc">%&gt;%</span></span>
+<span id="cb33-3"><a href="#cb33-3"></a>  <span class="fu">mutate</span>(<span class="at">predictions =</span> <span class="fu">map</span>(model, predict, <span class="at">new_data =</span> new_cross_country)) <span class="sc">%&gt;%</span></span>
+<span id="cb33-4"><a href="#cb33-4"></a>  <span class="fu">unnest</span>(predictions) <span class="sc">%&gt;%</span></span>
+<span id="cb33-5"><a href="#cb33-5"></a>  <span class="fu">mutate</span>(<span class="at">category_2 =</span> <span class="st">"Cross-Country"</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb33-6"><a href="#cb33-6"></a>  <span class="fu">left_join</span>(new_cross_country, <span class="at">by =</span> <span class="st">"category_2"</span>)</span>
+<span id="cb33-7"><a href="#cb33-7"></a></span>
+<span id="cb33-8"><a href="#cb33-8"></a>predictions_new_cross_country_tbl</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+
+<div data-pagedtable="false">
+  <script data-pagedtable-source="" type="application/json">
+{"columns":[{"label":["model_id"],"name":[1],"type":["chr"],"align":["left"]},{"label":["model.x"],"name":[2],"type":["list"],"align":["right"]},{"label":[".pred"],"name":[3],"type":["dbl"],"align":["right"]},{"label":["category_2"],"name":[4],"type":["chr"],"align":["left"]},{"label":["model.y"],"name":[5],"type":["chr"],"align":["left"]},{"label":["frame_material"],"name":[6],"type":["chr"],"align":["left"]},{"label":["shimano_dura_ace"],"name":[7],"type":["dbl"],"align":["right"]},{"label":["shimano_ultegra"],"name":[8],"type":["dbl"],"align":["right"]},{"label":["shimano_105"],"name":[9],"type":["dbl"],"align":["right"]},{"label":["shimano_tiagra"],"name":[10],"type":["dbl"],"align":["right"]},{"label":["Shimano_sora"],"name":[11],"type":["dbl"],"align":["right"]},{"label":["shimano_deore"],"name":[12],"type":["dbl"],"align":["right"]},{"label":["shimano_slx"],"name":[13],"type":["dbl"],"align":["right"]},{"label":["shimano_grx"],"name":[14],"type":["dbl"],"align":["right"]},{"label":["Shimano_xt"],"name":[15],"type":["dbl"],"align":["right"]},{"label":["Shimano_xtr"],"name":[16],"type":["dbl"],"align":["right"]},{"label":["Shimano_saint"],"name":[17],"type":["dbl"],"align":["right"]},{"label":["SRAM_red"],"name":[18],"type":["dbl"],"align":["right"]},{"label":["SRAM_force"],"name":[19],"type":["dbl"],"align":["right"]},{"label":["SRAM_rival"],"name":[20],"type":["dbl"],"align":["right"]},{"label":["SRAM_apex"],"name":[21],"type":["dbl"],"align":["right"]},{"label":["SRAM_xx1"],"name":[22],"type":["dbl"],"align":["right"]},{"label":["SRAM_x01"],"name":[23],"type":["dbl"],"align":["right"]},{"label":["SRAM_gx"],"name":[24],"type":["dbl"],"align":["right"]},{"label":["SRAM_nx"],"name":[25],"type":["dbl"],"align":["right"]},{"label":["SRAM_sx"],"name":[26],"type":["dbl"],"align":["right"]},{"label":["Campagnolo_potenza"],"name":[27],"type":["dbl"],"align":["right"]},{"label":["Campagnolo_super_record"],"name":[28],"type":["dbl"],"align":["right"]},{"label":["shimano_nexus"],"name":[29],"type":["dbl"],"align":["right"]},{"label":["shimano_alfine"],"name":[30],"type":["dbl"],"align":["right"]}],"data":[{"1":"Model 01","2":"<S3: workflow>","3":"2367.843","4":"Cross-Country","5":"Exceed AL SL new","6":"aluminium","7":"0","8":"0","9":"0","10":"0","11":"0","12":"0","13":"0","14":"0","15":"1","16":"0","17":"0","18":"0","19":"0","20":"0","21":"0","22":"0","23":"0","24":"0","25":"0","26":"0","27":"0","28":"0","29":"0","30":"0"},{"1":"Model 02","2":"<S3: workflow>","3":"2367.843","4":"Cross-Country","5":"Exceed AL SL new","6":"aluminium","7":"0","8":"0","9":"0","10":"0","11":"0","12":"0","13":"0","14":"0","15":"1","16":"0","17":"0","18":"0","19":"0","20":"0","21":"0","22":"0","23":"0","24":"0","25":"0","26":"0","27":"0","28":"0","29":"0","30":"0"}],"options":{"columns":{"min":{},"max":[10]},"rows":{"min":[10],"max":[10]},"pages":{}}}
+  </script>
+</div>
+</div>
+<div class="sourceCode cell-code" id="cb34"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb34-1"><a href="#cb34-1"></a><span class="co"># Update plot</span></span>
+<span id="cb34-2"><a href="#cb34-2"></a>g2 <span class="ot">&lt;-</span> g1 <span class="sc">+</span></span>
+<span id="cb34-3"><a href="#cb34-3"></a>  <span class="fu">geom_point</span>(<span class="fu">aes</span>(<span class="at">y =</span> .pred), <span class="at">color =</span> <span class="st">"red"</span>, <span class="at">alpha =</span> <span class="fl">0.5</span>,</span>
+<span id="cb34-4"><a href="#cb34-4"></a>             <span class="at">data =</span> predictions_new_cross_country_tbl) <span class="sc">+</span></span>
+<span id="cb34-5"><a href="#cb34-5"></a>  ggrepel<span class="sc">::</span><span class="fu">geom_text_repel</span>(<span class="fu">aes</span>(<span class="at">label =</span> model_id, <span class="at">y =</span> .pred),</span>
+<span id="cb34-6"><a href="#cb34-6"></a>                           <span class="at">size =</span> <span class="dv">3</span>,</span>
+<span id="cb34-7"><a href="#cb34-7"></a>                           <span class="at">data =</span> predictions_new_cross_country_tbl)</span>
+<span id="cb34-8"><a href="#cb34-8"></a><span class="fu">print</span>(g2)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stderr">
+<pre><code>#&gt; Warning: Groups with fewer than two data points have been dropped.
+#&gt; Groups with fewer than two data points have been dropped.
+#&gt; Groups with fewer than two data points have been dropped.</code></pre>
+</div>
+<div class="cell-output-display">
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure"><p><a href="02_data_acquisition_files/figure-html/unnamed-chunk-1-4.png" class="lightbox" data-gallery="quarto-lightbox-gallery-4"><img src="02_data_acquisition_files/figure-html/unnamed-chunk-1-4.png" class="img-fluid figure-img" width="672"></a></p>
+</figure>
+</div>
 </div>
 </div>
 
 
 
-</main> <!-- /main -->
-<script id="quarto-html-after-body" type="application/javascript">
+</main><!-- /main --><script id="quarto-html-after-body" type="application/javascript">
 window.document.addEventListener("DOMContentLoaded", function (event) {
   const toggleBodyColorMode = (bsSheetEl) => {
     const mode = bsSheetEl.getAttribute("data-mode");
@@ -425,7 +777,7 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
 });
 </script>
 </div> <!-- /content -->
-
+<script>var lightboxQuarto = GLightbox({"openEffect":"zoom","loop":true,"descPosition":"bottom","selector":".lightbox","closeEffect":"zoom"});</script>
 
 
 </body></html>
